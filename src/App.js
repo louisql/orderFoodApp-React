@@ -4,9 +4,10 @@ import Header from "./components/Layout/Header";
 
 function App() {
   return (
-    <Fragment>
+    /* <> </> replacing Fragment */
+    <>
       <Header/>
-    </Fragment>
+    </>
   );
 }
 
