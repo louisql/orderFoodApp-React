@@ -15,7 +15,7 @@ const Header = (props) => {
     <Fragment>
       <header className={classes.header}>
         <h1>Food Ordering App</h1>
-        <HeaderCartButton />
+        <HeaderCartButton onClickPointer={props.onShowCart} />
       </header>
       <div className={classes["main-image"]}>
         {/* because of the dash in main-image we can't use the dot notation */}
