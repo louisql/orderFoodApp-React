@@ -7,6 +7,7 @@ import classes from "./AvailableMeals.module.css";
 const AvailableMeals = () => {
   const [meals, setMeals] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [httpError, setHttpError] = useState();
 
   useEffect(async () => {
     /* useEffect expect a function that is NOT asyncronious - so we create fetchMeals for it to be separated  */
@@ -14,8 +15,14 @@ const AvailableMeals = () => {
       setIsLoading(true);
 
       const response = await fetch(
-        "https://react-http-ede7f-default-rtdb.firebaseio.com/meals.json"
-      ); /* Make sure to add .json */
+        "https://react-http-ede7f-default-rtdb.firebaseio.com/meals.json" /* Make sure to add .json */
+      );
+
+      if (!response.ok) {
+      throw new Error('Something went wrong'); /* When throwing errors the lines after won't execute */
+      }
+
+
       const responseData = await response.json();
 
       const loadedMeals = [];
@@ -33,7 +40,13 @@ const AvailableMeals = () => {
       setIsLoading(false);
     };
 
-    fetchMeals();
+
+      fetchMeals().then().catch((error) => { /* because fetchMeals returns a promise we use the then  catch (catch for error) method */
+        setIsLoading(false);
+        setHttpError(error.message);
+
+      }); 
+
   }, []);
 
   if (isLoading) {
@@ -43,6 +56,14 @@ const AvailableMeals = () => {
         <p>Loading...</p>
       </section>
     );
+  }
+
+  if (httpError) {
+    return (
+      <section>
+        <p className={classes.MealsError}>{httpError}</p>
+      </section>
+    )
   }
 
   const mealsList = meals.map((meal) => (
