@@ -9,7 +9,7 @@ const AvailableMeals = () => {
   const [meals, setMeals] = useState([]);
 
   useEffect(async () => {
-    /* useEffect expect a function that is NOT asyncronious - so we create fetchMeals for it to be separated */
+    /* useEffect expect a function that is NOT asyncronious - so we create fetchMeals for it to be separated  */
     const fetchMeals = async () => {
       const response = await fetch('https://react-http-ede7f-default-rtdb.firebaseio.com/meals.json'); /* Make sure to add .json */
       const responseData = await response.json();
